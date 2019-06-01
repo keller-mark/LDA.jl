@@ -1,7 +1,7 @@
 using DataFrames
 using CSV
 
-include("lda.jl")
+include("LDA.jl")
 
 cd("/Users/markkeller/Documents/UMD/Summer2019/julia_inference_exercises/lda")
 docs = CSV.read("data/sim-movie-review-data-docs.tsv", delim='\t')

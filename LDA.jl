@@ -120,11 +120,24 @@ function LDA(corpus :: Array{Array{Int32,1},1}, token_to_word :: Dict{Int32,Stri
     for i in 1:max_iter
         # 2.1 For each document
         for d in 1:D
-            # 2.1.1 Update γ and ϕ
-
+            # 2.1.1 Update ϕ and γ
+            N = length(corpus[d]) # number of words
+            for n in 1:N
+                v = token_to_word[corpus[d][n]]
+                for k in 1:K
+                    ϕ[d][n][k] = β[k][v]*exp( Ψ(γ[d][k]) - Ψ(sum(γ[d])) )
+                end
+            end
+            γ[d] = α + sum(ϕ[d], dims=1)
         end
 
         # 2.2 For corpus, update β
+        for k in 1:K
+            for v in 1:V
+                # TODO: fix the line below
+                β[k][v] = sum( sum( ϕ[d][n][k]*corpus[d][v] ) )
+            end
+        end
 
         # 2.3 Compute L for diagnostics
 

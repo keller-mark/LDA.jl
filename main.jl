@@ -41,4 +41,4 @@ for d in 1:n_docs
     end
 end
 
-LDA(corpus, token_to_word, random_state=10, K=n_topics)
+LDA(corpus, token_to_word, random_state=10, K=n_topics, max_iter=100)

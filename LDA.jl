@@ -1,4 +1,5 @@
 using Random
+using Distributions
 
 #=
 LDA generative model:
@@ -101,6 +102,35 @@ function LDA(corpus :: Array{Array{Int32,1},1}, token_to_word :: Dict{Int32,Stri
         λ = fill(V/100, V)
     end
 
+    # 1.1 Randomly initialize topics
+    β = Array{Float64,2}(undef, K, V)
+    for k in 1:K
+        β[k] = Dirichlet(λ)
+    end
+
+    # 1.2 Randomly initialize variational parameters
+    γ = Array{Float64,2}(undef, D, K) # array of size D x K
+    ϕ = Array{Array{Float64,2},1}(undef, D) # array of size D x N x K
+    for d in 1:D
+        n_words = length(corpus[d])
+        ϕ[d] = Array{Float64,2}(undef, n_words, K)
+    end
+
+    # 2.0 Iterate
+    for i in 1:max_iter
+        # 2.1 For each document
+        for d in 1:D
+            # 2.1.1 Update γ and ϕ
+
+        end
+
+        # 2.2 For corpus, update β
+
+        # 2.3 Compute L for diagnostics
+
+    end
+
+    # 3.0 Return expectation of variational parameters
 
 
 end
